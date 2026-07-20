@@ -54,6 +54,17 @@ public class FilterByStringRequest : KineticaData
         /// <remarks><para>If the column is a string type (non-charN) and the
         /// number of records is too large, it will return 0.</para></remarks>
         public const string REGEX = "regex";
+
+        /// <summary>Cross-shard BM25 corpus statistics for one (column, query)
+        /// pair.</summary>
+        /// <remarks><para>Returns the merged BM25 statistics (max_doc,
+        /// doc_count, sum_total_term_freq, per-term doc_freq /
+        /// total_term_freq) needed by callers that score documents themselves
+        /// (e.g. text_match_bm25_global SQL function pre-pass). Requires
+        /// <c>COLUMN_NAMES</c> to contain exactly one column with text search
+        /// enabled. The <c>VIEW_NAME</c> field is ignored — this mode does not
+        /// produce a result table.</para></remarks>
+        public const string SEARCH_STATS = "search_stats";
     } // end struct Mode
 
     /// <summary>A set of string constants for the parameter <see
@@ -190,6 +201,19 @@ public class FilterByStringRequest : KineticaData
     ///         <description>Full regular expression search (not accelerated).
     ///         If the column is a string type (non-charN) and the number of
     ///         records is too large, it will return 0.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.SEARCH_STATS">SEARCH_STATS</see>:
+    ///         </term>
+    ///         <description>Cross-shard BM25 corpus statistics for one
+    ///         (column, query) pair. Returns the merged BM25 statistics
+    ///         (max_doc, doc_count, sum_total_term_freq, per-term doc_freq /
+    ///         total_term_freq) needed by callers that score documents
+    ///         themselves (e.g. text_match_bm25_global SQL function pre-pass).
+    ///         Requires <c>COLUMN_NAMES</c> to contain exactly one column with
+    ///         text search enabled. The <c>VIEW_NAME</c> field is ignored —
+    ///         this mode does not produce a result table.</description>
     ///     </item>
     /// </list></remarks>
     public string mode { get; set; }
@@ -336,6 +360,19 @@ public class FilterByStringRequest : KineticaData
     ///         If the column is a string type (non-charN) and the number of
     ///         records is too large, it will return 0.</description>
     ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.SEARCH_STATS">SEARCH_STATS</see>:
+    ///         </term>
+    ///         <description>Cross-shard BM25 corpus statistics for one
+    ///         (column, query) pair. Returns the merged BM25 statistics
+    ///         (max_doc, doc_count, sum_total_term_freq, per-term doc_freq /
+    ///         total_term_freq) needed by callers that score documents
+    ///         themselves (e.g. text_match_bm25_global SQL function pre-pass).
+    ///         Requires <c>COLUMN_NAMES</c> to contain exactly one column with
+    ///         text search enabled. The <c>VIEW_NAME</c> field is ignored —
+    ///         this mode does not produce a result table.</description>
+    ///     </item>
     /// </list></param>
     /// <param name="column_names">List of columns on which to apply the
     /// filter. Ignored for <see
@@ -455,4 +492,15 @@ public class FilterByStringResponse : KineticaData
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Serialized cross-shard BM25 corpus statistics, populated for
+    /// <see cref="FilterByStringRequest.Mode.SEARCH_STATS">SEARCH_STATS</see>
+    /// mode and empty otherwise.</summary>
+    /// <remarks><para>Wire format matches the merged BM25GlobalStats blob the
+    /// BM25 stats worker produces internally (max_doc, doc_count,
+    /// sum_total_term_freq, sum_doc_freq, num_terms, then per term: term,
+    /// doc_freq, total_term_freq). Clients that consume this perform their own
+    /// scoring; the gpudb client library will expose a parser as a future
+    /// convenience. The default value is ''.</para></remarks>
+    public byte[] stats_data { get; set; }
 } // end class FilterByStringResponse

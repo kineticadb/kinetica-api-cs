@@ -358,6 +358,21 @@ public class AlterTableRequest : KineticaData
         /// for possible values for <see cref="AlterTableRequest._value" />.
         /// </summary>
         public const string SET_BUILD_MATERIALIZED_VIEW_POLICY = "set_build_materialized_view_policy";
+
+        /// <summary>Drops and rebuilds the <a
+        /// href="../../../concepts/full_text_search/" target="_top">text
+        /// search</a> index for the table from current type metadata and chunk
+        /// storage.</summary>
+        /// <remarks><para>Use this to repair a text-search index left
+        /// incomplete by an interrupted or failed rebuild (for example, after
+        /// a crash during an add-column that requested text search):
+        /// re-running the original add_column will not work because the column
+        /// already exists. This action is also dispatched automatically by
+        /// <see
+        /// cref="Kinetica.alterTableColumns(AlterTableColumnsRequest)">Kinetica.alterTableColumns</see>
+        /// after add_column completions that require a full re-index. The <see
+        /// cref="AlterTableRequest._value" /> is ignored.</para></remarks>
+        public const string REBUILD_TEXT_SEARCH_INDEX = "rebuild_text_search_index";
     } // end struct Action
 
     /// <summary>A set of string constants for the parameter <see
@@ -1007,6 +1022,24 @@ public class AlterTableRequest : KineticaData
     ///         cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
     ///         for possible values for <see cref="AlterTableRequest._value"
     ///         />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterTableRequest.Action.REBUILD_TEXT_SEARCH_INDEX">REBUILD_TEXT_SEARCH_INDEX</see>:
+    ///         </term>
+    ///         <description>Drops and rebuilds the <a
+    ///         href="../../../concepts/full_text_search/" target="_top">text
+    ///         search</a> index for the table from current type metadata and
+    ///         chunk storage. Use this to repair a text-search index left
+    ///         incomplete by an interrupted or failed rebuild (for example,
+    ///         after a crash during an add-column that requested text search):
+    ///         re-running the original add_column will not work because the
+    ///         column already exists. This action is also dispatched
+    ///         automatically by <see
+    ///         cref="Kinetica.alterTableColumns(AlterTableColumnsRequest)">Kinetica.alterTableColumns</see>
+    ///         after add_column completions that require a full re-index. The
+    ///         <see cref="AlterTableRequest._value" /> is ignored.
+    ///         </description>
     ///     </item>
     /// </list></remarks>
     public string action { get; set; }
@@ -1682,6 +1715,23 @@ public class AlterTableRequest : KineticaData
     ///         cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
     ///         for possible values for <paramref name="_value" />.
     ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterTableRequest.Action.REBUILD_TEXT_SEARCH_INDEX">REBUILD_TEXT_SEARCH_INDEX</see>:
+    ///         </term>
+    ///         <description>Drops and rebuilds the <a
+    ///         href="../../../concepts/full_text_search/" target="_top">text
+    ///         search</a> index for the table from current type metadata and
+    ///         chunk storage. Use this to repair a text-search index left
+    ///         incomplete by an interrupted or failed rebuild (for example,
+    ///         after a crash during an add-column that requested text search):
+    ///         re-running the original add_column will not work because the
+    ///         column already exists. This action is also dispatched
+    ///         automatically by <see
+    ///         cref="Kinetica.alterTableColumns(AlterTableColumnsRequest)">Kinetica.alterTableColumns</see>
+    ///         after add_column completions that require a full re-index. The
+    ///         <paramref name="_value" /> is ignored.</description>
     ///     </item>
     /// </list></param>
     /// <param name="_value">The value of the modification, depending on

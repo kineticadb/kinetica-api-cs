@@ -30,6 +30,10 @@ public class RestoreBackupRequest : KineticaData
         /// </summary>
         public const string ALL = "all";
 
+        /// <summary>Data Lake catalog that is external to the database.
+        /// </summary>
+        public const string CATALOG = "catalog";
+
         /// <summary><a href="../../../sql-gpt/concepts/#sql-gpt-context"
         /// target="_top">Context(s)</a>.</summary>
         public const string CONTEXT = "context";
@@ -46,12 +50,18 @@ public class RestoreBackupRequest : KineticaData
         /// target="_top">Data source(s)</a>.</summary>
         public const string DATASOURCE = "datasource";
 
+        /// <summary>KiFS <a href="../../../tools/kifs/" target="_top">File
+        /// directory(ies)</a>.</summary>
+        public const string DIRECTORY = "directory";
+
         /// <summary><a href="../../../udf/python/writing/#udf-python-func-env"
         /// target="_top">Python UDF function environment(s)</a>.</summary>
         public const string FUNCTION_ENVIRONMENT = "function_environment";
 
         /// <summary><a href="../../../graph_solver/network_graph_solver/"
-        /// target="_top">Graph(s)</a> definition.</summary>
+        /// target="_top">Graph</a> definition(s).</summary>
+        /// <remarks><para> Source table(s), if applicable, are required in
+        /// order to restore graph objects.</para></remarks>
         public const string GRAPH = "graph";
 
         /// <summary><a href="../../../concepts/table_monitors/"
@@ -267,6 +277,28 @@ public class RestoreBackupRequest : KineticaData
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string RENAMED_OBJECTS_SCHEMA = "renamed_objects_schema";
 
+        /// <summary>Whether or not all permissions of restored principals
+        /// should be restored or scoped to the restored objects.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Restore all permissions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
+        ///         <description>Restore only permissions on restored objects.
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
+        public const string RESTORE_ALL_PERMISSIONS = "restore_all_permissions";
+
         /// <summary>Behavior to apply when any database object to restore
         /// already exists.</summary>
         /// <remarks><para>Supported values:</para>
@@ -317,6 +349,17 @@ public class RestoreBackupRequest : KineticaData
         /// <remarks><para>This policy does not apply to non-schema objects.
         /// </para></remarks>
         public const string RENAME = "rename";
+
+        /// <summary>Restore schema-based objects to alternate schema.
+        /// </summary>
+        /// <remarks><para>Value is a comma delimitted list of key:value pairs
+        /// mapping the original (source) schema name as it exists in the
+        /// backup to a target (destination) schema namespace:
+        /// '&lt;src&gt;:&lt;dst&gt;,&lt;src&gt;:&lt;dst&gt;,...'. Note that
+        /// schema names are case sensitive and must adhere to the database
+        /// schema <a href="../../../concepts/schemas/" target="_top">naming
+        /// criteria</a>. The default value is ''.</para></remarks>
+        public const string TARGET_SCHEMA_MAP = "target_schema_map";
     } // end struct Options
 
     /// <summary>Name of the backup to restore from, which must refer to an
@@ -334,6 +377,13 @@ public class RestoreBackupRequest : KineticaData
     ///         <description>All object types and data contained in the given
     ///         <a href="../../../concepts/schemas/"
     ///         target="_top">schema(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.CATALOG">CATALOG</see>:
+    ///         </term>
+    ///         <description>Data Lake catalog that is external to the
+    ///         database.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -366,6 +416,13 @@ public class RestoreBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
+    ///         <description>KiFS <a href="../../../tools/kifs/"
+    ///         target="_top">File directory(ies)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RestoreBackupRequest.RestoreObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
@@ -379,7 +436,9 @@ public class RestoreBackupRequest : KineticaData
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a> definition.</description>
+    ///         target="_top">Graph</a> definition(s). Source table(s), if
+    ///         applicable, are required in order to restore graph objects.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -632,6 +691,33 @@ public class RestoreBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_ALL_PERMISSIONS">RESTORE_ALL_PERMISSIONS</see>:
+    ///         </term>
+    ///         <description>Whether or not all permissions of restored
+    ///         principals should be restored or scoped to the restored
+    ///         objects.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Restore all permissions.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Restore only permissions on restored
+    ///                 objects.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RestoreBackupRequest.Options.RESTORE_POLICY">RESTORE_POLICY</see>:
     ///         </term>
     ///         <description>Behavior to apply when any database object to
@@ -670,6 +756,20 @@ public class RestoreBackupRequest : KineticaData
     ///         cref="RestoreBackupRequest.Options.NONE">NONE</see>.
     ///         </description>
     ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.TARGET_SCHEMA_MAP">TARGET_SCHEMA_MAP</see>:
+    ///         </term>
+    ///         <description>Restore schema-based objects to alternate schema.
+    ///         Value is a comma delimitted list of key:value pairs mapping the
+    ///         original (source) schema name as it exists in the backup to a
+    ///         target (destination) schema namespace:
+    ///         '&lt;src&gt;:&lt;dst&gt;,&lt;src&gt;:&lt;dst&gt;,...'. Note
+    ///         that schema names are case sensitive and must adhere to the
+    ///         database schema <a href="../../../concepts/schemas/"
+    ///         target="_top">naming criteria</a>. The default value is ''.
+    ///         </description>
+    ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
     public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -693,6 +793,13 @@ public class RestoreBackupRequest : KineticaData
     ///         <description>All object types and data contained in the given
     ///         <a href="../../../concepts/schemas/"
     ///         target="_top">schema(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.CATALOG">CATALOG</see>:
+    ///         </term>
+    ///         <description>Data Lake catalog that is external to the
+    ///         database.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -725,6 +832,13 @@ public class RestoreBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
+    ///         <description>KiFS <a href="../../../tools/kifs/"
+    ///         target="_top">File directory(ies)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RestoreBackupRequest.RestoreObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
@@ -738,7 +852,9 @@ public class RestoreBackupRequest : KineticaData
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a> definition.</description>
+    ///         target="_top">Graph</a> definition(s). Source table(s), if
+    ///         applicable, are required in order to restore graph objects.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -987,6 +1103,33 @@ public class RestoreBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_ALL_PERMISSIONS">RESTORE_ALL_PERMISSIONS</see>:
+    ///         </term>
+    ///         <description>Whether or not all permissions of restored
+    ///         principals should be restored or scoped to the restored
+    ///         objects.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Restore all permissions.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Restore only permissions on restored
+    ///                 objects.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RestoreBackupRequest.Options.RESTORE_POLICY">RESTORE_POLICY</see>:
     ///         </term>
     ///         <description>Behavior to apply when any database object to
@@ -1023,6 +1166,20 @@ public class RestoreBackupRequest : KineticaData
     ///         </list>
     ///         The default value is <see
     ///         cref="RestoreBackupRequest.Options.NONE">NONE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.TARGET_SCHEMA_MAP">TARGET_SCHEMA_MAP</see>:
+    ///         </term>
+    ///         <description>Restore schema-based objects to alternate schema.
+    ///         Value is a comma delimitted list of key:value pairs mapping the
+    ///         original (source) schema name as it exists in the backup to a
+    ///         target (destination) schema namespace:
+    ///         '&lt;src&gt;:&lt;dst&gt;,&lt;src&gt;:&lt;dst&gt;,...'. Note
+    ///         that schema names are case sensitive and must adhere to the
+    ///         database schema <a href="../../../concepts/schemas/"
+    ///         target="_top">naming criteria</a>. The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>

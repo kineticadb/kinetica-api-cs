@@ -316,9 +316,15 @@ public class InsertRecordsFromQueryRequest : KineticaData
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+        ///         cref="InsertRecordsFromQueryRequest.Options.SKIP">SKIP</see>:
         ///         </term>
         ///         <description>Malformed records are skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+        ///         </term>
+        ///         <description>Alias for skip.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -340,6 +346,9 @@ public class InsertRecordsFromQueryRequest : KineticaData
         public const string PERMISSIVE = "permissive";
 
         /// <summary>Malformed records are skipped.</summary>
+        public const string SKIP = "skip";
+
+        /// <summary>Alias for skip.</summary>
         public const string IGNORE_BAD_RECORDS = "ignore_bad_records";
 
         /// <summary>Stops current insertion and aborts entire operation when
@@ -981,10 +990,16 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromQueryRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -1660,10 +1675,16 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromQueryRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see

@@ -68,12 +68,18 @@ public class CreateBackupRequest : KineticaData
         /// target="_top">Data source(s)</a>.</summary>
         public const string DATASOURCE = "datasource";
 
+        /// <summary>KiFS <a href="../../../tools/kifs/" target="_top">File
+        /// directory(ies)</a>.</summary>
+        public const string DIRECTORY = "directory";
+
         /// <summary><a href="../../../udf/python/writing/#udf-python-func-env"
         /// target="_top">Python UDF function environment(s)</a>.</summary>
         public const string FUNCTION_ENVIRONMENT = "function_environment";
 
         /// <summary><a href="../../../graph_solver/network_graph_solver/"
-        /// target="_top">Graph(s)</a> definition.</summary>
+        /// target="_top">Graph</a> definition(s).</summary>
+        /// <remarks><para> Source table(s), if applicable, are required in
+        /// order to restore graph objects.</para></remarks>
         public const string GRAPH = "graph";
 
         /// <summary><a href="../../../concepts/table_monitors/"
@@ -120,6 +126,37 @@ public class CreateBackupRequest : KineticaData
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
+        /// <summary>Whether or not to block all mutations on target tables
+        /// while they are being backed up.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Block all mutations on target tables while
+        ///         they are being backed up.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
+        ///         <description>Only block mutations on a target table at the
+        ///         point a disk eviction is necessary.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="CreateBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
+        public const string BLOCK_TABLE_MUTATIONS = "block_table_mutations";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateBackupRequest.Options" /> options.</summary>
+        public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateBackupRequest.Options" /> options.</summary>
+        public const string FALSE = "false";
+
         /// <summary>Whether or not to calculate checksums for backup files.
         /// </summary>
         /// <remarks><para>Supported values:</para>
@@ -137,14 +174,6 @@ public class CreateBackupRequest : KineticaData
         /// cref="CreateBackupRequest.Options.FALSE">FALSE</see>.</para>
         /// </remarks>
         public const string CHECKSUM = "checksum";
-
-        /// <summary>A boolean constant for the <see
-        /// cref="CreateBackupRequest.Options" /> options.</summary>
-        public const string TRUE = "true";
-
-        /// <summary>A boolean constant for the <see
-        /// cref="CreateBackupRequest.Options" /> options.</summary>
-        public const string FALSE = "false";
 
         /// <summary>Comments to store with this backup.</summary>
         public const string COMMENT = "comment";
@@ -317,6 +346,13 @@ public class CreateBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
+    ///         <description>KiFS <a href="../../../tools/kifs/"
+    ///         target="_top">File directory(ies)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="CreateBackupRequest.BackupObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
@@ -330,7 +366,9 @@ public class CreateBackupRequest : KineticaData
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a> definition.</description>
+    ///         target="_top">Graph</a> definition(s). Source table(s), if
+    ///         applicable, are required in order to restore graph objects.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -399,6 +437,33 @@ public class CreateBackupRequest : KineticaData
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.BLOCK_TABLE_MUTATIONS">BLOCK_TABLE_MUTATIONS</see>:
+    ///         </term>
+    ///         <description>Whether or not to block all mutations on target
+    ///         tables while they are being backed up.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Block all mutations on target tables while
+    ///                 they are being backed up.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Only block mutations on a target table at
+    ///                 the point a disk eviction is necessary.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateBackupRequest.Options.CHECKSUM">CHECKSUM</see>:
@@ -623,6 +688,13 @@ public class CreateBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
+    ///         <description>KiFS <a href="../../../tools/kifs/"
+    ///         target="_top">File directory(ies)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="CreateBackupRequest.BackupObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
@@ -636,7 +708,9 @@ public class CreateBackupRequest : KineticaData
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a> definition.</description>
+    ///         target="_top">Graph</a> definition(s). Source table(s), if
+    ///         applicable, are required in order to restore graph objects.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -702,6 +776,33 @@ public class CreateBackupRequest : KineticaData
     /// stored.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.BLOCK_TABLE_MUTATIONS">BLOCK_TABLE_MUTATIONS</see>:
+    ///         </term>
+    ///         <description>Whether or not to block all mutations on target
+    ///         tables while they are being backed up.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Block all mutations on target tables while
+    ///                 they are being backed up.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Only block mutations on a target table at
+    ///                 the point a disk eviction is necessary.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateBackupRequest.Options.CHECKSUM">CHECKSUM</see>:

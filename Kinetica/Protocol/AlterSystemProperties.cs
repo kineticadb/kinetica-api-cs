@@ -159,6 +159,29 @@ public class AlterSystemPropertiesRequest : KineticaData
         /// is '1'. The maximum allowed value is '120'.</para></remarks>
         public const string KAFKA_WAIT_TIME = "kafka_wait_time";
 
+        /// <summary>Enable caching of Iceberg table metadata.</summary>
+        public const string ICEBERG_TABLE_METADATA_CACHE_ENABLED = "iceberg_table_metadata_cache_enabled";
+
+        /// <summary>Maximum number of Iceberg table metadata entries to cache.
+        /// </summary>
+        public const string ICEBERG_TABLE_METADATA_CACHE_SIZE = "iceberg_table_metadata_cache_size";
+
+        /// <summary>Time-to-live (seconds) for cached Iceberg table metadata
+        /// entries.</summary>
+        public const string ICEBERG_TABLE_METADATA_CACHE_TTL = "iceberg_table_metadata_cache_ttl";
+
+        /// <summary>When enabled, check the current Iceberg snapshot on cache
+        /// hits and invalidate entries that have changed.</summary>
+        public const string ICEBERG_TABLE_METADATA_CACHE_SNAPSHOT_CHECK = "iceberg_table_metadata_cache_snapshot_check";
+
+        /// <summary>Maximum number of cached Iceberg REST catalog connections.
+        /// </summary>
+        public const string ICEBERG_CATALOG_CONNECTION_CACHE_SIZE = "iceberg_catalog_connection_cache_size";
+
+        /// <summary>Enable caching of parsed Iceberg manifest and
+        /// manifest-list files.</summary>
+        public const string ICEBERG_MANIFEST_CACHE_ENABLED = "iceberg_manifest_cache_enabled";
+
         /// <summary>Parquet file compression type.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
@@ -231,6 +254,12 @@ public class AlterSystemPropertiesRequest : KineticaData
         /// this limit. The minimum allowed value is '2'. The maximum allowed
         /// value is '8192'.</para></remarks>
         public const string TPS_PER_TOM = "tps_per_tom";
+
+        /// <summary>Size of the worker rank IO thread pool.</summary>
+        /// <remarks><para>This is used for blocking IO operations such as
+        /// reads from object storage or external file systems.</para>
+        /// </remarks>
+        public const string REMOTE_IO_THREADS = "remote_io_threads";
 
         /// <summary>Size of the worker rank background thread pool.</summary>
         /// <remarks><para>This includes background operations such as
@@ -556,6 +585,49 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_ENABLED">ICEBERG_TABLE_METADATA_CACHE_ENABLED</see>:
+    ///         </term>
+    ///         <description>Enable caching of Iceberg table metadata.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_SIZE">ICEBERG_TABLE_METADATA_CACHE_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of Iceberg table metadata entries
+    ///         to cache.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_TTL">ICEBERG_TABLE_METADATA_CACHE_TTL</see>:
+    ///         </term>
+    ///         <description>Time-to-live (seconds) for cached Iceberg table
+    ///         metadata entries.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_SNAPSHOT_CHECK">ICEBERG_TABLE_METADATA_CACHE_SNAPSHOT_CHECK</see>:
+    ///         </term>
+    ///         <description>When enabled, check the current Iceberg snapshot
+    ///         on cache hits and invalidate entries that have changed.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_CATALOG_CONNECTION_CACHE_SIZE">ICEBERG_CATALOG_CONNECTION_CACHE_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of cached Iceberg REST catalog
+    ///         connections.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_MANIFEST_CACHE_ENABLED">ICEBERG_MANIFEST_CACHE_ENABLED</see>:
+    ///         </term>
+    ///         <description>Enable caching of parsed Iceberg manifest and
+    ///         manifest-list files.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
     ///         </term>
     ///         <description>Parquet file compression type.
@@ -624,6 +696,14 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///         deletes on table data.  Multi-head inserts are not affected by
     ///         this limit. The minimum allowed value is '2'. The maximum
     ///         allowed value is '8192'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REMOTE_IO_THREADS">REMOTE_IO_THREADS</see>:
+    ///         </term>
+    ///         <description>Size of the worker rank IO thread pool. This is
+    ///         used for blocking IO operations such as reads from object
+    ///         storage or external file systems.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -1008,6 +1088,49 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_ENABLED">ICEBERG_TABLE_METADATA_CACHE_ENABLED</see>:
+    ///         </term>
+    ///         <description>Enable caching of Iceberg table metadata.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_SIZE">ICEBERG_TABLE_METADATA_CACHE_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of Iceberg table metadata entries
+    ///         to cache.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_TTL">ICEBERG_TABLE_METADATA_CACHE_TTL</see>:
+    ///         </term>
+    ///         <description>Time-to-live (seconds) for cached Iceberg table
+    ///         metadata entries.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_SNAPSHOT_CHECK">ICEBERG_TABLE_METADATA_CACHE_SNAPSHOT_CHECK</see>:
+    ///         </term>
+    ///         <description>When enabled, check the current Iceberg snapshot
+    ///         on cache hits and invalidate entries that have changed.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_CATALOG_CONNECTION_CACHE_SIZE">ICEBERG_CATALOG_CONNECTION_CACHE_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of cached Iceberg REST catalog
+    ///         connections.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_MANIFEST_CACHE_ENABLED">ICEBERG_MANIFEST_CACHE_ENABLED</see>:
+    ///         </term>
+    ///         <description>Enable caching of parsed Iceberg manifest and
+    ///         manifest-list files.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
     ///         </term>
     ///         <description>Parquet file compression type.
@@ -1076,6 +1199,14 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///         deletes on table data.  Multi-head inserts are not affected by
     ///         this limit. The minimum allowed value is '2'. The maximum
     ///         allowed value is '8192'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REMOTE_IO_THREADS">REMOTE_IO_THREADS</see>:
+    ///         </term>
+    ///         <description>Size of the worker rank IO thread pool. This is
+    ///         used for blocking IO operations such as reads from object
+    ///         storage or external file systems.</description>
     ///     </item>
     ///     <item>
     ///         <term><see

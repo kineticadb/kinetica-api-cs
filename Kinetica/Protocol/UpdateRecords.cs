@@ -270,6 +270,31 @@ public class RawUpdateRecordsRequest : KineticaData
         /// </remarks>
         public const string ENABLE_INPLACE_UPDATES = "enable_inplace_updates";
 
+        /// <summary>For an out-of-place update (delete and insert), controls
+        /// where the replacement records are reinserted.</summary>
+        /// <remarks><para>If set to <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, the workers
+        /// that own the data reinsert them directly, avoiding a round trip
+        /// through the head node; a shard-key change reshards the replacements
+        /// to their new owning workers. If set to <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+        /// replacement records are reinserted from the head node. Overrides
+        /// the {feature.enable_worker_oop_update}@ configuration default.
+        /// Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
+        ///     </item>
+        /// </list></remarks>
+        public const string ENABLE_WORKER_OOP_UPDATE = "enable_worker_oop_update";
+
         /// <summary>If set to <see
         /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any strings
         /// which are too long for their charN string fields will be truncated
@@ -594,6 +619,34 @@ public class RawUpdateRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_WORKER_OOP_UPDATE">ENABLE_WORKER_OOP_UPDATE</see>:
+    ///         </term>
+    ///         <description>For an out-of-place update (delete and insert),
+    ///         controls where the replacement records are reinserted. If set
+    ///         to <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         the workers that own the data reinsert them directly, avoiding
+    ///         a round trip through the head node; a shard-key change reshards
+    ///         the replacements to their new owning workers. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         replacement records are reinserted from the head node.
+    ///         Overrides the {feature.enable_worker_oop_update}@ configuration
+    ///         default.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
     ///         </term>
     ///         <description>If set to <see
@@ -889,6 +942,34 @@ public class RawUpdateRecordsRequest : KineticaData
     ///         The default value is <see
     ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.
     ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_WORKER_OOP_UPDATE">ENABLE_WORKER_OOP_UPDATE</see>:
+    ///         </term>
+    ///         <description>For an out-of-place update (delete and insert),
+    ///         controls where the replacement records are reinserted. If set
+    ///         to <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         the workers that own the data reinsert them directly, avoiding
+    ///         a round trip through the head node; a shard-key change reshards
+    ///         the replacements to their new owning workers. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         replacement records are reinserted from the head node.
+    ///         Overrides the {feature.enable_worker_oop_update}@ configuration
+    ///         default.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list></description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -1221,6 +1302,34 @@ public class RawUpdateRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_WORKER_OOP_UPDATE">ENABLE_WORKER_OOP_UPDATE</see>:
+    ///         </term>
+    ///         <description>For an out-of-place update (delete and insert),
+    ///         controls where the replacement records are reinserted. If set
+    ///         to <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         the workers that own the data reinsert them directly, avoiding
+    ///         a round trip through the head node; a shard-key change reshards
+    ///         the replacements to their new owning workers. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         replacement records are reinserted from the head node.
+    ///         Overrides the {feature.enable_worker_oop_update}@ configuration
+    ///         default.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
     ///         </term>
     ///         <description>If set to <see
@@ -1533,6 +1642,31 @@ public class UpdateRecordsRequest<T> : KineticaData
         /// </remarks>
         public const string ENABLE_INPLACE_UPDATES = "enable_inplace_updates";
 
+        /// <summary>For an out-of-place update (delete and insert), controls
+        /// where the replacement records are reinserted.</summary>
+        /// <remarks><para>If set to <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, the workers
+        /// that own the data reinsert them directly, avoiding a round trip
+        /// through the head node; a shard-key change reshards the replacements
+        /// to their new owning workers. If set to <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+        /// replacement records are reinserted from the head node. Overrides
+        /// the {feature.enable_worker_oop_update}@ configuration default.
+        /// Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
+        ///     </item>
+        /// </list></remarks>
+        public const string ENABLE_WORKER_OOP_UPDATE = "enable_worker_oop_update";
+
         /// <summary>If set to <see
         /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any strings
         /// which are too long for their charN string fields will be truncated
@@ -1822,6 +1956,34 @@ public class UpdateRecordsRequest<T> : KineticaData
     ///         The default value is <see
     ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.
     ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_WORKER_OOP_UPDATE">ENABLE_WORKER_OOP_UPDATE</see>:
+    ///         </term>
+    ///         <description>For an out-of-place update (delete and insert),
+    ///         controls where the replacement records are reinserted. If set
+    ///         to <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         the workers that own the data reinsert them directly, avoiding
+    ///         a round trip through the head node; a shard-key change reshards
+    ///         the replacements to their new owning workers. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         replacement records are reinserted from the head node.
+    ///         Overrides the {feature.enable_worker_oop_update}@ configuration
+    ///         default.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list></description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -2117,6 +2279,34 @@ public class UpdateRecordsRequest<T> : KineticaData
     ///         The default value is <see
     ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.
     ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_WORKER_OOP_UPDATE">ENABLE_WORKER_OOP_UPDATE</see>:
+    ///         </term>
+    ///         <description>For an out-of-place update (delete and insert),
+    ///         controls where the replacement records are reinserted. If set
+    ///         to <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         the workers that own the data reinsert them directly, avoiding
+    ///         a round trip through the head node; a shard-key change reshards
+    ///         the replacements to their new owning workers. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         replacement records are reinserted from the head node.
+    ///         Overrides the {feature.enable_worker_oop_update}@ configuration
+    ///         default.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list></description>
     ///     </item>
     ///     <item>
     ///         <term><see

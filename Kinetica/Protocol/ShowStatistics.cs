@@ -54,54 +54,16 @@ public class ShowStatisticsRequest : KineticaData
         /// <summary>A boolean constant for the <see
         /// cref="ShowStatisticsRequest.Options" /> options.</summary>
         public const string FALSE = "false";
-
-        /// <summary>Columns, per table in <see
-        /// cref="ShowStatisticsRequest.table_names" />, to collect statistics
-        /// for when @{input.key options.collect_now} is <see
-        /// cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>; ignored
-        /// otherwise.</summary>
-        /// <remarks><para> Encoded as a ';'-separated parallel array aligned
-        /// with <see cref="ShowStatisticsRequest.table_names" /> (e.g.
-        /// <c>X,Y;Z</c> requests columns x,y for the first table and z for the
-        /// second).  A value of <c>_*</c> expands to every collectable column
-        /// on each table (geometry, vector, JSON, and array columns are
-        /// skipped).  An explicit list may not be combined with a <c>_*</c>
-        /// table_names wildcard. The default value is ''.</para></remarks>
-        public const string COLUMN_NAMES = "column_names";
-
-        /// <summary>If <see
-        /// cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>, the columns
-        /// named by @{input.key options.column_names} are collected
-        /// synchronously during this request and reflected in the response.
-        /// </summary>
-        /// <remarks><para> Default <see
-        /// cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
-        /// Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>
-        ///         </term>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is <see
-        /// cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.</para>
-        /// </remarks>
-        public const string COLLECT_NOW = "collect_now";
     } // end struct Options
 
     /// <summary>Names of tables whose metadata will be fetched, each in
     /// [schema_name.]table_name format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
     /// target="_top">name resolution rules</a>.</summary>
-    /// <remarks><para> All provided tables must exist, or an error is
-    /// returned.  A single entry of <c>_*</c> expands to every user table the
-    /// caller may read (excluding system schemas, views, and temporary
-    /// tables); when used it must be the only entry.</para></remarks>
+    /// <remarks><para>All provided tables must exist, or an error is returned.
+    /// A single entry of '*' expands to every user table the caller may read
+    /// (excluding system schemas, views, and temporary tables); when used it
+    /// must be the only entry.</para></remarks>
     public IList<string> table_names { get; set; } = new List<string>();
 
     /// <summary>Optional parameters.</summary>
@@ -136,50 +98,6 @@ public class ShowStatisticsRequest : KineticaData
     ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="ShowStatisticsRequest.Options.COLUMN_NAMES">COLUMN_NAMES</see>:
-    ///         </term>
-    ///         <description>Columns, per table in <see
-    ///         cref="ShowStatisticsRequest.table_names" />, to collect
-    ///         statistics for when @{input.key options.collect_now} is <see
-    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>; ignored
-    ///         otherwise.  Encoded as a ';'-separated parallel array aligned
-    ///         with <see cref="ShowStatisticsRequest.table_names" /> (e.g.
-    ///         <c>X,Y;Z</c> requests columns x,y for the first table and z for
-    ///         the second).  A value of <c>_*</c> expands to every collectable
-    ///         column on each table (geometry, vector, JSON, and array columns
-    ///         are skipped).  An explicit list may not be combined with a
-    ///         <c>_*</c> table_names wildcard. The default value is ''.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="ShowStatisticsRequest.Options.COLLECT_NOW">COLLECT_NOW</see>:
-    ///         </term>
-    ///         <description>If <see
-    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>, the
-    ///         columns named by @{input.key options.column_names} are
-    ///         collected synchronously during this request and reflected in
-    ///         the response.  Default <see
-    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>
-    ///                 </term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see
-    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
     public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -194,10 +112,10 @@ public class ShowStatisticsRequest : KineticaData
     /// <param name="table_names">Names of tables whose metadata will be
     /// fetched, each in [schema_name.]table_name format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
-    /// target="_top">name resolution rules</a>.  All provided tables must
-    /// exist, or an error is returned.  A single entry of <c>_*</c> expands to
-    /// every user table the caller may read (excluding system schemas, views,
-    /// and temporary tables); when used it must be the only entry.</param>
+    /// target="_top">name resolution rules</a>. All provided tables must
+    /// exist, or an error is returned.  A single entry of '*' expands to every
+    /// user table the caller may read (excluding system schemas, views, and
+    /// temporary tables); when used it must be the only entry.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -211,50 +129,6 @@ public class ShowStatisticsRequest : KineticaData
     ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see> and if
     ///         the table names specified in <paramref name="table_names" />
     ///         does not exist, then an error is returned.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>
-    ///                 </term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see
-    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="ShowStatisticsRequest.Options.COLUMN_NAMES">COLUMN_NAMES</see>:
-    ///         </term>
-    ///         <description>Columns, per table in <paramref name="table_names"
-    ///         />, to collect statistics for when @{input.key
-    ///         options.collect_now} is <see
-    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>; ignored
-    ///         otherwise.  Encoded as a ';'-separated parallel array aligned
-    ///         with <paramref name="table_names" /> (e.g. <c>X,Y;Z</c>
-    ///         requests columns x,y for the first table and z for the second).
-    ///         A value of <c>_*</c> expands to every collectable column on
-    ///         each table (geometry, vector, JSON, and array columns are
-    ///         skipped).  An explicit list may not be combined with a
-    ///         <c>_*</c> table_names wildcard. The default value is ''.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="ShowStatisticsRequest.Options.COLLECT_NOW">COLLECT_NOW</see>:
-    ///         </term>
-    ///         <description>If <see
-    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>, the
-    ///         columns named by @{input.key options.column_names} are
-    ///         collected synchronously during this request and reflected in
-    ///         the response.  Default <see
-    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>

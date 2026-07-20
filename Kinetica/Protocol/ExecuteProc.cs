@@ -381,6 +381,15 @@ public class ExecuteProcRequest : KineticaData
 /// </summary>
 public class ExecuteProcResponse : KineticaData
 {
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="ExecuteProcResponse.info" />.</summary>
+    /// <remarks><para>Additional information.</para></remarks>
+    public struct Info
+    {
+        /// <summary>&lt;DEVELOPER&gt;</summary>
+        public const string DEFERRED_TABLES = "deferred_tables";
+    } // end struct Info
+
     /// <summary>The run ID of the running proc instance.</summary>
     /// <remarks><para>This may be passed to <see
     /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
@@ -390,5 +399,14 @@ public class ExecuteProcResponse : KineticaData
     public string run_id { get; set; }
 
     /// <summary>Additional information.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="ExecuteProcResponse.Info.DEFERRED_TABLES">DEFERRED_TABLES</see>:
+    ///         </term>
+    ///         <description>&lt;DEVELOPER&gt;</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 } // end class ExecuteProcResponse

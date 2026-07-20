@@ -1,5 +1,14 @@
 # Kinetica REST API Changelog
 
+## Version 7.2.3.19
+#### Added
+-   Added new options ``iceberg_table_metadata_cache_enabled``, ``iceberg_table_metadata_cache_size``, ``iceberg_table_metadata_cache_ttl``, ``iceberg_table_metadata_cache_snapshot_check``, ``iceberg_catalog_connection_cache_size``, and ``iceberg_manifest_cache_enabled`` to ``/alter/system/properties`` request
+
+## Version 7.2.3.18
+#### Added
+-   Added ``transformations`` option to ``/create/table/external``, ``/insert/records/fromfiles`` and ``/insert/records/frompayload``
+-   Added ``restore_all_permissions`` option to ``/restore/backup`` to override default-on behavior that scopes permissions to restored objects only.
+
 ## Version 7.2.3.15
 #### Added
 -   Added new option ``telm_force_metrics_duration`` to ``/alter/system/properties`` request

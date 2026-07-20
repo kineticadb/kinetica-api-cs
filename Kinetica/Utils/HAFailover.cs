@@ -9,12 +9,12 @@ namespace kinetica;
 public enum HAFailoverOrder
 {
     /// <summary>
-    /// Failover to clusters in a random order (default)
+    /// Failover to clusters in a random order
     /// </summary>
     Random,
 
     /// <summary>
-    /// Failover to clusters in sequential order
+    /// Failover to clusters in sequential order (default)
     /// </summary>
     Sequential
 }
@@ -55,6 +55,13 @@ public class ClusterAddressInfo
     /// Whether this is the primary cluster
     /// </summary>
     public bool IsPrimaryCluster { get; set; }
+
+    /// <summary>
+    /// The last-seen HA drained status for this cluster
+    /// (<c>drained</c>/<c>draining</c>/<c>not_drained</c>), or <c>null</c> if unknown/not HA.
+    /// Recorded during discovery; consulted when deciding whether the cluster may be routed to.
+    /// </summary>
+    public string HaStatus { get; set; }
 
     /// <summary>
     /// Creates a new ClusterAddressInfo for an active cluster.
@@ -248,7 +255,7 @@ public class HAFailoverManager
         DisableFailover = false;
         DisableAutoDiscovery = false;
         HostManagerPort = DefaultHostManagerPort;
-        FailoverOrder = HAFailoverOrder.Random;
+        FailoverOrder = HAFailoverOrder.Sequential;
     }
 
     /// <summary>
@@ -397,29 +404,46 @@ public class HAFailoverManager
 
                 if (!DisableAutoDiscovery && kinetica != null)
                 {
-                    try
-                    {
-                        // Try to get system properties from the server
-                        var systemProps = kinetica.showSystemProperties().property_map;
-                        clusterInfo = CreateClusterAddressInfo(url, systemProps);
+                    // Ask THIS specific URL for its running + drain status (per-URL; does not
+                    // trigger failover).
+                    var status = kinetica.GetSystemRunningStatus(url, quickCheck: false);
 
-                        // Get HA ring URLs and add them to the queue
-                        var haRingUrls = GetHARingHeadNodeUrls(systemProps);
-                        foreach (var haUrl in haRingUrls)
+                    if (!status.IsRunning)
+                    {
+                        // Down or unreachable: record it minimally; it may come up later. A draining
+                        // node reports running (see below), so this branch is genuinely "not up".
+                        Logger.LogWarning(
+                            "Adding cluster with URL {URL} to the ring though it is not confirmed running.",
+                            url);
+                        clusterInfo = new ClusterAddressInfo(url, HostManagerPort) { HaStatus = status.HaStatus };
+                    }
+                    else
+                    {
+                        try
                         {
-                            if (!GetIndexOfClusterContainingNode(haUrl.Host).HasValue &&
-                                !urlQueue.Contains(haUrl))
+                            // Running (possibly draining): fetch full properties from THIS URL.
+                            var systemProps = kinetica.GetSystemProperties(url);
+                            clusterInfo = CreateClusterAddressInfo(url, systemProps);
+                            clusterInfo.HaStatus = status.HaStatus;
+
+                            // Get HA ring URLs and add them to the queue
+                            var haRingUrls = GetHARingHeadNodeUrls(systemProps);
+                            foreach (var haUrl in haRingUrls)
                             {
-                                urlQueue.Enqueue(haUrl);
+                                if (!GetIndexOfClusterContainingNode(haUrl.Host).HasValue &&
+                                    !urlQueue.Contains(haUrl))
+                                {
+                                    urlQueue.Enqueue(haUrl);
+                                }
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.LogWarning(ex,
-                            "Adding failed connectivity check cluster to cluster list with URL: {URL}.",
-                            url);
-                        clusterInfo = new ClusterAddressInfo(url, HostManagerPort);
+                        catch (Exception ex)
+                        {
+                            Logger.LogWarning(ex,
+                                "Adding failed connectivity check cluster to cluster list with URL: {URL}.",
+                                url);
+                            clusterInfo = new ClusterAddressInfo(url, HostManagerPort) { HaStatus = status.HaStatus };
+                        }
                     }
                 }
                 else
@@ -740,10 +764,13 @@ public class HAFailoverManager
     /// </summary>
     /// <param name="oldUrl">The URL that was in use when the failure occurred</param>
     /// <param name="oldNumClusterSwitches">The switch count before this switch was initiated</param>
-    /// <param name="isKineticaRunning">Function to check if Kinetica is running at a URL</param>
+    /// <param name="isClusterUsable">Predicate deciding whether a candidate cluster may be routed
+    /// to: reachable, running, and not draining. A bare liveness ping is <em>not</em> sufficient --
+    /// a draining cluster answers a ping but rejects queries -- so this must consult the cluster's
+    /// drain state (see <c>Kinetica.IsClusterUsable</c>).</param>
     /// <returns>The new URL to use</returns>
     /// <exception cref="KineticaException">If failover is not possible</exception>
-    public Uri SwitchUrl(Uri oldUrl, int oldNumClusterSwitches, Func<Uri, bool>? isKineticaRunning = null)
+    public Uri SwitchUrl(Uri oldUrl, int oldNumClusterSwitches, Func<Uri, bool>? isClusterUsable = null)
     {
         lock (_lock)
         {
@@ -792,9 +819,11 @@ public class HAFailoverManager
                     throw new KineticaException($"Circled back to original URL; no clusters available for fail-over among these: {string.Join(", ", GetUrls())}");
                 }
 
-                // Check if the new cluster is running
-                bool isRunning = isKineticaRunning?.Invoke(currentUrl) ?? true;
-                if (isRunning)
+                // Accept the candidate only if it is usable (reachable + running + not draining).
+                // A draining cluster passes a liveness ping but rejects queries, so a ping-only
+                // test here would let failover land on a draining cluster and thrash.
+                bool usable = isClusterUsable?.Invoke(currentUrl) ?? true;
+                if (usable)
                 {
                     return currentUrl;
                 }

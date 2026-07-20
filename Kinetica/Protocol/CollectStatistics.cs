@@ -18,19 +18,19 @@ public class CollectStatisticsRequest : KineticaData
     /// <summary>Name of a table, in [schema_name.]table_name format, using
     /// standard <a href="../../../concepts/tables/#table-name-resolution"
     /// target="_top">name resolution rules</a>.</summary>
-    /// <remarks><para> Must be an existing table.  A value of <c>_*</c>
-    /// collects statistics on every user table the caller may read (excluding
-    /// system schemas, views, and temporary tables); when used, <see
-    /// cref="CollectStatisticsRequest.column_names" /> must be <c>_["*"]</c>.
-    /// </para></remarks>
+    /// <remarks><para>Must be an existing table.  A value of '*' collects
+    /// statistics on every user table the caller may read (excluding system
+    /// schemas, views, and temporary tables); when used, <see
+    /// cref="CollectStatisticsRequest.column_names" /> must be '*'.</para>
+    /// </remarks>
     public string table_name { get; set; }
 
     /// <summary>List of one or more column names in <see
     /// cref="CollectStatisticsRequest.table_name" /> for which to collect
     /// statistics (cardinality, mean value, etc.).</summary>
-    /// <remarks><para> A single entry of <c>_*</c> expands to every
-    /// collectable column on the table (geometry, vector, JSON, and array
-    /// columns are skipped).</para></remarks>
+    /// <remarks><para>A single entry of '*' expands to every collectable
+    /// column on the table (geometry, vector, JSON, and array columns are
+    /// skipped).</para></remarks>
     public IList<string> column_names { get; set; } = new List<string>();
 
     /// <summary>Optional parameters.</summary>
@@ -48,15 +48,15 @@ public class CollectStatisticsRequest : KineticaData
     /// <param name="table_name">Name of a table, in [schema_name.]table_name
     /// format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
-    /// target="_top">name resolution rules</a>.  Must be an existing table.  A
-    /// value of <c>_*</c> collects statistics on every user table the caller
-    /// may read (excluding system schemas, views, and temporary tables); when
-    /// used, <paramref name="column_names" /> must be <c>_["*"]</c>.</param>
+    /// target="_top">name resolution rules</a>. Must be an existing table.  A
+    /// value of '*' collects statistics on every user table the caller may
+    /// read (excluding system schemas, views, and temporary tables); when
+    /// used, <paramref name="column_names" /> must be '*'.</param>
     /// <param name="column_names">List of one or more column names in
     /// <paramref name="table_name" /> for which to collect statistics
-    /// (cardinality, mean value, etc.).  A single entry of <c>_*</c> expands
-    /// to every collectable column on the table (geometry, vector, JSON, and
-    /// array columns are skipped).</param>
+    /// (cardinality, mean value, etc.). A single entry of '*' expands to every
+    /// collectable column on the table (geometry, vector, JSON, and array
+    /// columns are skipped).</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     public CollectStatisticsRequest( string table_name,

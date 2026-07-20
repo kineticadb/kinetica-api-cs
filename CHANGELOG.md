@@ -3,6 +3,25 @@
 
 ## Version 7.2
 
+### Version 7.2.3.5 - 2026-07-20
+
+#### Added
+
+- Checking of draining HA queue status on connection; fail over if so.
+
+#### Changed
+
+- Default `Kinetica.Options.HAFailoverOrder` from `Random` to `Sequential`
+
+#### Fixed
+
+- Auto-discovery now queries properties & status per-URL for each ring member,
+  rather than querying whichever cluster the client was currently pointed at.
+
+#### Notes
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
+
+
 ### Version 7.2.3.4 - 2026-06-18
 
 #### Added
