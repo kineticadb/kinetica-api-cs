@@ -15,8 +15,12 @@ jobs:
 
       # Pull this version's section out of CHANGELOG.md. The tag is "v7.2.3.5";
       # the heading is "### Version 7.2.3.5 - 2026-07-20". Capture everything up
-      # to the next "### Version" heading. The "([^0-9]|$)" guard stops 7.2.3.5
-      # from also matching a hypothetical 7.2.3.50.
+      # to the next "##" or "###" heading -- the next "### Version", or the
+      # "## Version 7.1" that follows the last entry of a minor line (e.g.
+      # 7.2.0.0). "#### Added" etc. stay in; "#" is only the page title. "###? "
+      # is used instead of "#{2,3} " because mawk (Ubuntu's awk) lacks interval
+      # expressions. The "([^0-9]|$)" guard stops 7.2.3.5 from also matching a
+      # hypothetical 7.2.3.50.
       - name: Extract release notes from CHANGELOG.md
         id: notes
         run: |
@@ -25,7 +29,7 @@ jobs:
 
           awk -v ver="$version" '
             $0 ~ "^### Version " ver "([^0-9]|$)" { in_section = 1; next }
-            in_section && /^### Version / { exit }
+            in_section && /^###? / { exit }
             in_section { print }
           ' CHANGELOG.md > notes.md
 
