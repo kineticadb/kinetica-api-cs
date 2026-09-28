@@ -12,11 +12,55 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Create draft release
+
+      # Pull this version's section out of CHANGELOG.md. The tag is "v7.2.3.5";
+      # the heading is "### Version 7.2.3.5 - 2026-07-20". Capture everything up
+      # to the next "### Version" heading. The "([^0-9]|$)" guard stops 7.2.3.5
+      # from also matching a hypothetical 7.2.3.50.
+      - name: Extract release notes from CHANGELOG.md
+        id: notes
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+
+          awk -v ver="$version" '
+            $0 ~ "^### Version " ver "([^0-9]|$)" { in_section = 1; next }
+            in_section && /^### Version / { exit }
+            in_section { print }
+          ' CHANGELOG.md > notes.md
+
+          if [ -s notes.md ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+            {
+              echo "### Release notes for ${version} (from CHANGELOG.md)"
+              echo
+              cat notes.md
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::No '### Version ${version}' section in CHANGELOG.md. Creating a DRAFT release with auto-generated notes."
+          fi
+
+      # With a CHANGELOG section, publish immediately; without one, fall back to a draft.
+      - name: Publish release
+        if: steps.notes.outputs.found == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           gh release create "${GITHUB_REF_NAME}" \
             --title "${GITHUB_REF_NAME}" \
+            --verify-tag \
+            --notes-file notes.md
+
+      - name: Create draft release (no CHANGELOG entry)
+        if: steps.notes.outputs.found == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release create "${GITHUB_REF_NAME}" \
+            --title "${GITHUB_REF_NAME}" \
+            --verify-tag \
             --generate-notes \
             --draft
